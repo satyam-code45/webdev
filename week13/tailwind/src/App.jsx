@@ -9,9 +9,9 @@ function App() {
   return (
     <>
       <div className='flex flex-col;' >
-        <div className=''>chils 1</div>
-        <div className=''>child 2</div>
-        <div className=''>child 3</div>
+        <div >chils 1</div>
+        <div >child 2</div>
+        <div >child 3</div>
       </div>
     </>
   )

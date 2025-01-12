@@ -23,17 +23,60 @@ app.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
+    const city = req.body.city;
+    const country = req.body.country;
+    const street = req.body.street;
+    const pincode = req.body.pincode;
     try {
-        const insertQuery = `INSERT INTO users (username, email, password) VALUES ($1,$2,$3);`;
-        const response = yield pgClient.query(insertQuery, [username, email, password]);
+        const insertQuery = `INSERT INTO users (username, email, password) VALUES ($1,$2,$3) RETURNING id;`;
+        const addressInsertQuery = `INSERT INTO addresses (user_id, city, country, street, pincode) VALUES ($1,$2,$3, $4, $5);`;
+        yield pgClient.query("BEGIN;");
+        const response = yield pgClient.query(insertQuery, [
+            username,
+            email,
+            password,
+        ]);
+        const userid = response.rows[0].id;
+        //await new Promise(x => setTimeout(x,100*1000)); //stops the control for 100s
+        const addressesResponse = yield pgClient.query(addressInsertQuery, [
+            userid,
+            city,
+            country,
+            street,
+            pincode,
+        ]);
+        yield pgClient.query("COMMIT;");
         res.json({
-            message: "You have signed up"
+            message: "You have signed up",
         });
     }
     catch (error) {
-        res.json({
-            message: "Error while signing up"
+        console.error("Error during signup:", error); // Log error details
+        res.status(500).json({
+            message: "Error while signing up",
         });
     }
+}));
+app.get("/metadata", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.query.id;
+    const query1 = `SELECT username,email,id FROM users WHERE id =$1`;
+    const response1 = yield pgClient.query(query1, [id]);
+    const query2 = `SELECT * FROM addresses WHERE user_id = $1`;
+    const response2 = yield pgClient.query(query2, [id]);
+    res.json({
+        user: response1.rows[0],
+        addresses: response2.rows[0],
+    });
+}));
+app.get("/better-metadata", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.query.id;
+    const query1 = `SELECT users.id, users.username, users.email, addresses.city, addresses.country, addresses.street, addresses.pincode
+    FROM users
+    JOIN addresses ON users.id = addresses.user_id
+    WHERE users.id = $1`;
+    const response = yield pgClient.query(query1, [id]);
+    res.json({
+        response: response.rows[0],
+    });
 }));
 app.listen(3000);
