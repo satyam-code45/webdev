@@ -55,12 +55,12 @@ export default function Home() {
             Deploy now
           </a>
           <a
-            href="https://turbo.build  /repo/docs?utm_source"
+            href="https://turbo.build/repo/docs?utm_source"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.secondary}
           >
-            Satyam Docs
+            Read our docs
           </a>
         </div>
         <Button appName="web" className={styles.secondary}>
