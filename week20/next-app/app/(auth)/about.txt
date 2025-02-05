@@ -1,0 +1,5 @@
+This folder (auth) structure help us to add layout to the pages after it without auth being coming into the routes
+ 
+we can access signup with route - http://localhost:3000/signup
+there is no need to add auth in the route 
+in similar faishon we can access signin route

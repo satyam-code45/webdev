@@ -1,10 +1,15 @@
 import { Counter, useCounter } from "./components/counter"
-import { Posts, usePosts} from "./components/useFetch"
+import Debounce from "./components/Debounce"
+import { Posts } from "./components/PostsTitle"
+import Previous from "./components/Previous"
+
 function App() {
   return (
     <div>
-     {/* <Counter/> */}
-      <Posts/>
+     {/* <Counter/>
+    <Posts/> */}
+    {/* <Previous/> */}
+    <Debounce/>
     </div>
   )
 }
