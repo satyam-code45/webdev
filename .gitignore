@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn.lock
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Build output
+dist/
+build/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+package-lock.json
+
+# Next.js specific
+.next/
+
+# Python
+__pycache__/
+*.pyc
+
+# Database
+*.sqlite
+*.db
