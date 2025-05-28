@@ -1,5 +1,3 @@
 ## Web Dev
 
-This is a readme file
-hello 
-adding line 5
+All you need for web dev is follow this repo
